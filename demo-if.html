@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+
+        function esteMajor(p){
+            // if(p.age >= 18){
+            //     return true;
+            // }
+            // return false;
+            console.log("VERIFICAM DACA ESTE MAJOR");
+            return p.age >= 18; // return 30>=18  -> true
+        }
+
+        function esteBogat(p){
+            console.log('VERIFICAM DACA ESTE BOGAT')
+            return p.income >= 3000;
+        }
+        
+    
+        var pers = {
+            name : 'bobby',
+            age : 2,
+            email : null,
+            income : 4400.0
+        };
+
+        console.log('--------------------------------')
+        if(esteBogat(pers) || esteMajor(pers) ){
+            console.log("you are allowed to gamble")
+        }else{
+            console.log("you are NOT allowed to gamble")
+        }
+
+        console.log('--------------------------------')
+        console.log(esteMajor(pers));
+
+        console.log(pers.name.toLocaleUpperCase());
+        console.log(pers.email);
+        // console.log(pers.email.toLocaleUpperCase());
+
+        // TODO: daca email-ul are cel putin 5 caractere => il afisam cu uppercase
+        // if(pers.email.length >= 5 && pers.email != null){
+        if(pers.email != null && pers.email.length >= 5){
+            console.log('BRANCH 1: ', pers.email.toLocaleUpperCase())
+        }else{
+            console.log('BRANCH 2: ', pers.email);
+        }
+        
+
+
+        console.log('--end script---');
+    </script>
+</body>
+</html>

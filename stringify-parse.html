@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h2>Stringify vs parse</h2>
+
+    <script>
+        var foods = [
+            {
+                "id": 101,
+                "name": "pizza",
+                "cost": 300
+            },
+            {
+                "id": 202,
+                "name": "pasta",
+                "cost": 400
+            },
+            {
+                "id": 303,
+                "name": "shaorma",
+                "cost": 230
+            },
+            {
+                "id": 304,
+                "name": "sushi",
+                "cost": 440
+            },
+            {
+                "id": 888,
+                "name": "noodles",
+                "cost": 100.2
+            },
+            {
+                "id": 432,
+                "name": "Shaorma 2",
+                "cost": 321.2
+            },
+            {
+                "id": 335,
+                "name": "pizza 3",
+                "cost": 333
+            }
+        ];
+
+        // foods.toUpperCase();
+
+        console.log('foods are: ', foods);
+        console.log(foods[0]);
+        console.log('TEST: ', foods[0].name);
+
+        var sirCaractere = JSON.stringify(foods);
+        sirCaractere = sirCaractere.toUpperCase();
+        console.log(sirCaractere);
+
+        sirCaractere = JSON.parse(sirCaractere);
+        console.log('TEST 2: ', sirCaractere[0])
+        console.log('TEST 2: ', sirCaractere[1])
+        console.log('TEST 2: ', sirCaractere[2])
+
+
+        console.log(sirCaractere[0].NAME);
+
+
+        function wordFirstCharacter2UpperCase(word) {
+            var firstCharacter = word[0];
+            var restOfWord = "";
+            var elements = word.split("");
+            console.log(elements);
+            for (var i = 1; i < elements.length; i++) {
+                restOfWord += elements[i];
+            }
+            // console.log('rest of word: ', firstCharacter.toUpperCase() + restOfWord)
+            return firstCharacter.toUpperCase() + restOfWord;
+        }
+
+        console.log('TEST 3: ', wordFirstCharacter2UpperCase('pizza'));
+        console.log('TEST 4: ', wordFirstCharacter2UpperCase('shaorma e misto'));
+
+        function firstCharacterToUpperCase(sir) {
+            // TODO:
+            return '';
+        }
+
+        var fraza = "greetings. pizza is awesome. yay.";
+        console.log(fraza);
+        // fraza = firstCharacterToUpperCase(fraza);
+        console.log(fraza);
+
+        console.log(wordFirstCharacter2UpperCase(fraza));
+
+
+        // var textLung = `Fractional currency, also referred to as shinplasters, was introduced by the United States federal government following the outbreak of the Civil War. 
+        // These low-denomination banknotes of the U.S. dollar were in use between 21 August 1862 and 15 February 1876; they were issued in denominations of 3, 5, 10, 15, 25 
+        // and 50 cents across five issuing periods. The notes could be redeemed by the U.S. Postal Service for the face value in postage stamps.`
+        // ;
+
+        var textLung = "Pro TV este un canal de televiziune privat comercial din România. A fost lansat la 1 decembrie 1995 și este deținut de compania Pro TV SRL, care face parte din grupul Central European Media Enterprises. Pro TV a fost în 2012 cel mai vizionat canal de televiziune din România, având o cotă de piață medie de 16,8%."
+        console.log(textLung);
+        //console.log(textLung.length);
+        // var cuvantLung = 0;
+        // for(var i=0; i<textLung.length; i++){
+        //     if(textLung[i].length > cuvantLung){
+        //         cuvantLung = textLung[i].length;
+
+        //     }
+
+        // }console.log(cuvantLung);
+
+        function wordWrap(arr) {
+            let a = arr.split(" ");
+            let x = [];
+            function splitter(argument) {
+                x.push(argument.splice(0, 4));
+                if (argument.length !== 0) {
+                    splitter(argument);
+                }
+            }
+            splitter(a);
+            return x;
+        } 
+        
+        
+        console.log(wordWrap(textLung))
+        let ar = [];
+        //console.log(textLung.length);
+        // function check(sir,end){
+        //     if(sir.slice(end-1,end) !== " " && sir.slice(end,end+1) !== " "){ 
+        //             end++;
+        //             check(sir,end);
+        //          }
+        //          return end;
+        // }
+        function check(sir, end) {
+            while (end < sir.length && sir.slice(end, end + 1) !== " " ) {
+                end++;
+            }
+            return end;
+        }
+
+        function textWrap(sir, start, end) {
+            if (sir.slice(end - 1, end) !== " ") {
+                end = check(sir, end);
+            }
+            ar.push(sir.slice(start, end));
+            start = end;
+            end += 30;
+            if (start <= sir.length) {
+                textWrap(sir, start, end);
+            }
+        }
+
+        textWrap(textLung, 0, 30);
+        console.log(ar);
+        var numbers = [19, 21, 34, 67, 12, 10, 8];
+        var noulArray = numbers.map(functiaVietii);
+
+        function functiaVietii(numerele) {
+            return numerele * 2;
+        }
+//  console.log(noulArray)
+
+        // TODO:
+        // de afisat doar cate 4 cuvinte pe un rand
+
+        // TODO:
+        // cum am putea face a.i. textul de mai sus sa-l afisam wrapped (maximum 30 de caractere pe linie)
+
+        // function wordWrap(sir){
+        //     let arr = sir.split(" ");
+        //     let finalArr = [];
+        //     function arrCreator(arg){
+        //         finalArr.push(arg.splice(0,4));
+        //         if(arg.length !== 0){
+        //             arrCreator(arg);
+        //         }
+        //     }
+        //     arrCreator(arr);
+
+        //     return finalArr;
+
+        //}
+
+        // console.log("aici", wordWrap(textLung));
+
+        // var rezultatWrap = wordWrap(textLung);
+        // console.log(rezultatWrap);
+
+    </script>
+</body>
+
+</html>

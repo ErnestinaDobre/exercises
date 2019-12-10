@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var variabila = true;
+        var tipul = typeof variabila 
+        // console.log(typeof tipul)
+        if(tipul == 'string'){
+            console.log('ai un sir')
+        }else if(tipul == 'number'){
+            console.log('ai un numar')
+        }else{
+            console.log('e altceva')
+        }
+        
+
+        var elemente = [];
+        function addElements(x){
+            
+            elemente.push(x);
+            console.log('elementele sunt: ', elemente)
+        }
+
+        addElements(10);
+        addElements(20);
+
+        console.log('-----------------------')
+
+        const nume = 'ion'
+        // nume = 'vasile';
+        console.log('nume: ', nume)
+
+        const numere = [];
+        // numere = [12,44,65];
+        numere.push(12);
+        numere.push(44);
+        console.log('numere: ', numere);
+        console.log('-----------------------')
+        const persoana = {
+            nume : 'ionescu',
+            prenume : 'ion',
+            varsta : 30
+        };
+        // persoana = {
+        //     nume : 'vasilescu',
+        //     prenume : 'vasile',
+        //     varsta : 32
+        // };
+        persoana.nume = 'vasilescu';
+        console.log('persoana: ', persoana);
+        console.log('-----------------------')
+        var varsta = 30;
+        // var descriere = null;
+
+        // if(varsta >= 18){
+        //     descriere = 'major'
+        // }else{
+        //     descriere = 'minor'
+        // }
+
+        var descriere = varsta >= 18 ? 'major' : 'minor';
+        
+
+        console.log('descriere: ', descriere);
+
+    </script>
+</body>
+</html>

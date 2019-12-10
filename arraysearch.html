@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+    <h2>Data and view</h2>
+
+    TODOS:
+    <ul>
+        <li>search should work for both uppercase and lowercase</li>
+        <li>search by id: daca introducem 101 ne apare food-ul cu id-ul 101</li>
+        <li>la search-ul cu higher than / lower than - nu sunt scoase liniile, ci highlight-uite cu o culoare</li>
+        <li>la price toggle - ASC, DESC</li>
+        <li>La price higher / lower - de highlight cele care corespund criteriului</li>
+        <li>BUTON pentru sortare dupa nume asc / desc</li>
+    </ul>
+
+    Search for food: <input id="food-to-search-for"> <br>
+    <button onclick="sortColumn('cost')">Sort by price</button>
+    Search for price: <br>
+    Lower than: <input id="sub"> <br>
+    Higher than: <input id="peste"> <br>
+
+    <script>
+        var sortDirection = false;
+
+        function sortColumn(columnCost) {
+            const dataType = typeof foods[0][columnCost]; // typeof foods[0]['cost'] -> number
+            sortDirection = !sortDirection;
+
+            switch (dataType) {
+                case 'number':
+                    sortCostColumn(sortDirection, columnCost);
+                    break;
+            }
+            desenareTabel(foods)
+
+        }
+        function sortCostColumn(sort, columnCost) {
+            foods = foods.sort((p1, p2) => {
+                return sort ? p1[columnCost] - p2[columnCost] : p2[columnCost] - p1[columnCost]
+            })
+        }
+
+
+        var inputSearch = $('#food-to-search-for');
+        // console.log('SEARCHING FOR: ', inputSearch.val());
+        inputSearch.on('keyup', function () {
+
+            var lookingFor = inputSearch.val().toLowerCase();
+            console.log('SEARCH CHANGED INTO: ', lookingFor);
+
+            var arrayOfFoundFoods = [];
+            for (var x of foods) {
+                if (x.name.indexOf(lookingFor) != -1) {
+                    // x is a food which contains the searched for string
+                    arrayOfFoundFoods.push(x);
+                }
+            }
+            var arrayOfFoundFoods = [];
+            for (var y of foods) {
+                if (('' + y.id).indexOf(lookingFor) != -1 || y.name.indexOf(lookingFor) != -1) {
+                    // x is a food which contains the searched for string
+                    arrayOfFoundFoods.push(y);
+                }
+            }
+
+            console.log('FOUND: ', arrayOfFoundFoods);
+            // foods = arrayOfFoundFoods; // THIS WOULD HAVE BEEN AN ERROR
+            desenareTabel(arrayOfFoundFoods); // this is the solution
+            // trebuie sa-l lasam pe 'foods' in pace,
+            // ca sa nu 'dispara' elementele in timpul unui search
+
+            console.log('FOODS ORIGINAL: ', foods);
+            console.log('FOODS CORRESPONDING TO CRITERIA: ', arrayOfFoundFoods);
+        });
+
+
+        // <p width="50">test</p>
+        // $('p[width="50"]).
+
+        // <td data-id="x.id">...</td>
+
+        var preturiSub = $('#sub');
+        preturiSub.on('keyup', function () {
+            var preturiMici = preturiSub.val();
+
+            $('.costuri').css("background-color", "white");
+            var elementeGasite = [];
+            for (var x of foods) {
+                if (x.cost < preturiMici) {
+                    // x.id
+                    $("td[data-id='" + x.id + "']").css("background-color", "yellow");
+                    // $('.costuri').css("background-color", "yellow");
+                    elementeGasite.push(x);
+
+                }
+            }
+            console.log('TO HIGHLIGHT: ', elementeGasite)
+            // var elementeUnhighlight = [];
+            // for(var x of foods){ // 
+            //     var exista = false;
+            //     for(var eg of elementeGasite){
+            //         if(eg.id == x.id){
+            //             exista = true;
+            //         }
+            //     }
+            //     if(!exista){
+            //         elementeUnhighlight.push(x);
+            //     }
+            // }
+            // console.log('TO UNHIGHLIGHT: ', elementeUnhighlight)
+            // for(var x of elementeUnhighlight ){
+
+            //         $("td[data-id='"+x.id+"']").css("background-color", "white");
+
+            // }
+        })
+
+        var preturiPeste = $('#peste');
+        preturiPeste.on('keyup', function () {
+            var preturiMari = preturiPeste.val();
+
+            var arrayPreturiMari = [];
+            for (var x of foods) {
+                if (x.cost > preturiMari) {
+                    arrayPreturiMari.push(x);
+                }
+                desenareTabel(arrayPreturiMari);
+            }
+
+        })
+
+    </script>
+
+    <table border="1" class="tabelSuper">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Cost</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="tbody-pentru-foods-table">
+
+        </tbody>
+    </table>
+    <style>
+        .red {
+            color: red
+        }
+
+        .green {
+            color: green;
+        }
+    </style>
+
+    <script>
+        var foods = [];
+
+
+        $.ajax({
+            method: 'get',
+            url: 'http://localhost:3000/foods',
+            success: function (x) {
+                console.log('am luat datele: ', x);
+                foods = x;
+
+                console.log('FOODS == 1 == ', foods);
+                desenareTabel(foods);
+            }
+        });
+
+        // console.log('FOODS == 2 == ', foods); // ajax se executa asynchronous - nu avem nicio garantie ca foods au ajuns aici
+
+
+        console.log(foods);
+
+        function delFood(idOfFoodToDelete) {
+            console.log('id of food to delete: ', idOfFoodToDelete);
+
+
+            $.ajax({
+                url: 'http://localhost:3000/foods/' + idOfFoodToDelete,
+                method: 'delete',
+                success: function (x) {
+                    console.log('BEFORE', foods)
+                    var foodToDelete = null;
+                    for (var x of foods) {
+                        if (x.id == idOfFoodToDelete) {
+                            foodToDelete = x;
+                        }
+                    }
+                    if (foodToDelete != null) { // daca am gasit elementul pe care dorim sa-l stergem
+                        console.log('food to delete is: ', foodToDelete);
+                        var position = foods.indexOf(foodToDelete);
+                        console.log('deleting from position: ', position);
+                        foods.splice(position, 1);
+                    }
+
+
+                    console.log('AFTER', foods)
+
+                    // de fiecare data cand stergem un food
+                    // este sters din array-ul 'foods' 
+                    // si 'redesenam' tabelul for the newly modified 'foods' 
+                    desenareTabel(foods);
+                }
+            });
+
+
+
+        }
+
+        // functia asta paint-uieste tabelul pe pagina 
+        // conform cu elementele din array-ul foods
+        function desenareTabel(parametruArrayFoods) {
+
+            var tabelul = document.getElementById('tbody-pentru-foods-table'); // $('#tbody-pentru-foods-table')
+            tabelul.innerHTML = '';
+            for (var x of parametruArrayFoods) {
+                console.log('food is: ', x);
+                tabelul.innerHTML += '<tr><td>' + x.id + '</td><td>' + x.name + '</td><td data-id="' + x.id + '" class = "costuri">' + x.cost + '</td><td><button onclick="delFood(' + x.id + ')">Delete</button><button class="btn-pt-update" data-id="' + x.id + '">Update</button></td></tr>';
+
+                // tabelul.html(...)
+            }
+            $('.btn-pt-update').click(function () {
+                var idul = $(this).attr('data-id')
+                console.log('vrei sa updatezi: ' + idul)
+
+                var foodCautat = null;
+                for (var x of foods) {
+                    if (x.id == idul) {
+                        foodCautat = x;
+                        break;
+                    }
+                }
+                console.log('food: ', foodCautat)
+                $('#in-fid-update').val(foodCautat.id);
+                $('#in-fname-update').val(foodCautat.name);
+                $('#in-fcost-update').val(foodCautat.cost);
+
+                // cand dam click pe save food vrem sa se updateze array-ul si tabelul
+                //              save food = 'bn-save-food-update'
+            })
+        }
+
+
+
+        // tabelul.html(...)
+
+
+        // primul apel al functiei ca sa desenam tabelul pentru all the foods
+        desenareTabel(foods);
+    // for(var i=0; i<foods.length; i++){
+    //     console.log('food: ', foods[i]);
+
+
+    </script>
+
+
+    ID: <input id="in-fid-update" type="number"> <br>
+    Food name: <input id="in-fname-update"><br>
+    Price: <input id="in-fcost-update" type="number"><br>
+    <button id="btn-save-food-update">Save food</button>
+
+    <ul>
+        <li>daca putem prin js sa nu permitem user-ilor sa salveze foods cu id sau price negativ</li>
+        <li>connect the 'fake' db</li>
+    </ul>
+
+    ID: <input id="in-fid" type="number"> <br>
+    Food name: <input id="in-fname"><br>
+    Price: <input id="in-fcost" type="number"><br>
+    <button id="btn-save-food">Save food</button>
+
+
+    <script>
+
+        $('#btn-save-food').click(function () {
+            console.log('clicked on save food')
+            var newfood = {
+                id: parseInt($('#in-fid').val()),
+                name: $('#in-fname').val(),
+                cost: parseFloat($('#in-fcost').val())
+            };
+            // var obiectul = {
+            //     "id": parseInt($('#in-fid').val()),
+            //     "name": $('#in-fname').val(),
+            //     "cost": parseFloat($('#in-fcost').val())
+            // }
+            console.log('adaugam obiectul: ', newfood)
+            var shouldSendRequest = (newfood.id > 0 && newfood.cost > 0);
+
+            if (shouldSendRequest) {
+                $.ajax({
+                    url: 'http://localhost:3000/foods',
+                    method: 'post',
+                    data: JSON.stringify(newfood),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (x) {
+                        console.log("ok");
+                        // (newfood.id < 0 || newfood.cost < 0 ) ? console.log("valoare prea mica") : foods.push(newfood);
+                        console.log('foods before: ', foods);
+                        foods.push(newfood)
+                        console.log('foods after: ', foods);
+                        desenareTabel(foods);
+                    }
+                })
+            } else {
+                console.log('cannot add newfood, please check fields')
+            }
+        });
+
+        // if(newfood.id < 0) {
+        //     console.log("test")
+        // } else {
+        //     foods.push(newfood);
+        // }
+        var filt = foods.filter(e => e.id == newfood.id)
+        console.log(filt)
+
+
+
+        //foods.push(newfood);
+
+        console.log('foods acum: ', foods)
+
+        var suma = 0.0;
+        for (var x of foods) {
+            suma += x.cost;
+        }
+        // {
+        //     id : 303,
+        //     name : 'shaorma',
+        //     cost : 230
+        // }
+        console.log('suma costurilor: ', suma);
+        desenareTabel(foods);
+
+
+    </script>
+
+</body>
+
+</html>

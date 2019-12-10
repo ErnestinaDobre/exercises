@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="./vakata-jstree-c9d7c14/dist/themes/default/style.min.css" />
+    <script src="./vakata-jstree-c9d7c14/dist/jstree.min.js"></script>
+</head>
+
+<body>
+    <h2>Welcome to recursivitate</h2>
+
+    <h1>Inline data demo</h1>
+    <div id="data" class="demo"></div>
+
+    <div id="data-angajati" class="demo"></div>
+
+    <div id="data-departamente" class="demo"></div>
+    <div id="data-folder" class="demo"></div>
+
+    <script>
+        // inline data demo
+        $('#data').jstree({
+            'core': {
+                'data': [
+                    {
+                        "text": "Root node", "children": [
+                            { "text": "Child node 1" },
+                            { "text": "Child node 2" }
+                        ]
+                    }
+                ]
+            }
+        });
+
+        
+        
+    </script>
+
+    <ul id="lista-recursiva">
+
+    </ul>
+<ul id="lista-dep">
+
+</ul>
+    <script>
+
+        class Angajat {
+
+            constructor(id, nume) {
+                this.id = id;
+                this.nume = nume;
+            }
+        }
+
+        var a1 = new Angajat(10, 'Ion');
+        var a2 = new Angajat(20, 'Bob');
+        var a3 = new Angajat(30, 'Alice');
+
+        var a4 = new Angajat(40, 'Matt');
+        var a5 = new Angajat(50, "Andy");
+        var a6 = new Angajat(60, 'Alex');
+
+        var a7 = new Angajat(70, 'Josh');
+        var a8 = new Angajat(80, 'Joe');
+
+        var a9 = new Angajat(90, 'Grigore');
+        var a10 = new Angajat(100, 'Dumitru');
+
+        a7.subordonati = [a9, a10];
+
+        a4.subordonati = [a7, a8];
+
+        var angajati = [a1, a2, a3, a4, a5]; // pentru afisare un for ar fi rezolvat problema
+        console.log(angajati);
+
+        a1.subordonati = [a3, a2];
+
+        a3.subordonati = [a4, a5, a6];
+
+        console.log('---------------------------------');
+
+
+
+        function createDataObjectForJsTreeFromAngajati(angajat){
+            var result =  { text : angajat.nume };
+            if(angajat.subordonati && angajat.subordonati.length > 0){
+                result.children = [];
+                for(var child of angajat.subordonati){
+                    // varianta ne-recursiva = not okay (nu merge pe toate nivelurile)
+                    // result.children.push({
+                    //     "text" : child.nume
+                    // });
+                    result.children.push(createDataObjectForJsTreeFromAngajati(child));
+
+                }
+            }
+
+            return result;
+        }
+
+        $('#data-angajati').jstree({
+            'core': {
+                'data': [createDataObjectForJsTreeFromAngajati(a1)]
+            
+            }
+        });
+
+
+        function displayAngajatLista_ok(angajat) {
+            var rezultat = `<li>${angajat.id} - ${angajat.nume}`;
+            if (angajat.subordonati && angajat.subordonati.length > 0) {
+                rezultat += '<ul>';
+                for (var sub of angajat.subordonati) {
+                    rezultat += displayAngajatLista_ok(sub);// `<li>${sub.id} - ${sub.nume}</li>`;
+                }
+                rezultat += '</ul>';
+            }
+            rezultat += '</li>';
+            return rezultat;
+        }
+
+        var listaAngajati = document.getElementById('lista-recursiva');
+        //listaAngajati.innerHTML = displayAngajatLista_ok(a1);
+
+        // $('#lista-recursiva').jstree();       
+
+
+
+    </script>
+
+    <script>
+
+        function Departament(nume, buget, locatie){
+            this.nume = nume;
+            this.buget = buget;
+            this.locatie = locatie;
+        }
+
+
+
+        var dep1 = {
+            nume : 'IT',
+            buget : 3000,
+            locatie : 'BUCHAREST'
+        };
+
+        var dep0 = new Departament('CONDUCERE', 9999, 'NY');
+        var dep2 = new Departament('HR', 2000, 'SIBIU');
+        var dep3 = new Departament('SALES', 4000, 'SIBIU');
+        var dep4 = new Departament('MARKETING', 3000, 'BRASOV');
+
+        var dep5 = new Departament('JAVA DEV', 5000, 'CONSTANTA');
+        var dep6 = new Departament('SQL DEV', 5000, 'SIBIU');
+        // TODO: de adaugat departamente
+        dep1.subdepartamente = [dep5, dep6];
+        dep3.subdepartamente = [dep4];
+        dep0.subdepartamente = [dep1, dep3, dep2];
+
+        // TODO: de afisat in ambele variante (lista, folders) departamentele
+
+        function foldereDepartamente(Departament){
+            var result =  { text : Departament.nume };
+            if(Departament.subdepartamente && Departament.subdepartamente.length > 0){
+                result.children = [];
+                for(var child of Departament.subdepartamente){
+                    // varianta ne-recursiva = not okay (nu merge pe toate nivelurile)
+                    // result.children.push({
+                    //     "text" : child.nume
+                    // });
+                    result.children.push(foldereDepartamente(child));
+
+                }
+            }
+
+            return result;
+        }
+
+        $('#data-departamente').jstree({
+            'core': {
+                'data': [foldereDepartamente(dep0)]
+            
+            }
+        });
+
+        // function displayDepartamentLista_ok(departament) {
+        //     var rezultat = `<li>${departament.buget} - ${departament.nume}`;
+        //     if (departament.subdepartamente && departament.subdepartamente.length > 0) {
+        //         rezultat += '<ul>';
+        //         for (var sub of departament.subdepartamente) {
+        //             rezultat += displayDepartamentLista_ok(sub);// `<li>${sub.id} - ${sub.nume}</li>`;
+        //         }
+        //         rezultat += '</ul>';
+        //     }
+        //     rezultat += '</li>';
+        //     return rezultat;
+        // }
+
+        var listaDepartamente = document.getElementById('lista-dep');
+        //listaDepartamente.innerHTML = displayDepartamentLista_ok(dep0);
+
+        class Folder{
+
+            constructor(name, type){
+                this.name = name;
+                this.type = type;
+            }
+        }
+
+        var root = new Folder('C:/', 'folder');
+        var pf = new Folder('Program Files', 'folder');
+        var gm = new Folder('Games', 'folder');
+
+        var wr = new Folder('WinRar', 'folder');
+        var sc = new Folder('SC.exe', 'file');
+
+        root.subfolders = [pf, gm];
+        gm.subfolders = [sc];
+        pf.subfolders = [wr];
+
+        
+
+function afisareFoldere(folder){
+    var rezultat = {text: folder.name};
+   
+    if(folder.subfolders && folder.subfolders.length > 0){
+        rezultat.children = [];
+        for(var fold of folder.subfolders ) {
+            rezultat.children.push(afisareFoldere(fold))
+        }
+    
+
+    }
+    if(folder.type == "file"){
+        console.log(folder.name);
+        
+    }
+    return rezultat;
+
+}
+
+$('#data-folder').jstree({
+    'core': {
+        'data': [afisareFoldere(root)]
+        }
+})
+
+
+
+
+
+        // TODO: daca un 'folder' are tipul file, de afisat numele cu rosu
+
+    </script>
+
+
+
+</body>
+
+</html>

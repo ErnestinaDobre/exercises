@@ -1,0 +1,7 @@
+- bind
+- recursivitate
+- prototype
+- toggle (jQuery)
+- call, apply
+- classes (inheritance, interfaces)
+- errors

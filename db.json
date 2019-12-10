@@ -1,0 +1,44 @@
+{
+  "foods": [
+    {
+      "id": 101,
+      "name": "pizza",
+      "cost": 300
+    },
+    {
+      "id": 202,
+      "name": "pasta",
+      "cost": 400
+    },
+    {
+      "id": 303,
+      "name": "shaorma",
+      "cost": 230
+    },
+    {
+      "id": 304,
+      "name": "sushi",
+      "cost": 440
+    },
+    {
+      "id": 888,
+      "name": "noodles",
+      "cost": 100.2
+    },
+    {
+      "id": 335,
+      "name": "pizza 3",
+      "cost": 333
+    },
+    {
+      "id": 3213,
+      "name": "test",
+      "cost": 23
+    },
+    {
+      "id": 3132,
+      "name": "test2",
+      "cost": 312
+    }
+  ]
+}

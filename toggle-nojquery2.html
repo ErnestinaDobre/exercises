@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div id="continut" ></div>
+
+    <button id="moreless">Show more</button>
+
+    <script>
+
+        
+        var textScurt = 'Salutare lume...';
+        var textLung = 'Salutare lume afara e iarna o ce nasol';
+        document.getElementById('continut').innerHTML = textScurt;
+
+
+        
+        // $('#continut').toggle();
+        
+        document.getElementById('moreless').addEventListener('click', function(){
+            
+            var esteMore = document.getElementById('continut').getAttribute('data-este-more') == 'true';
+            // var esteMore = 'true' == 'true';  var esteMore = true;
+            // var esteMore = 'true' == 'false'; var esteMore = false;
+            // var esteMore = 'false';
+            console.log('este more preluat din interiorul atributului HTML', esteMore);
+
+            
+
+
+            if(esteMore){ // if(esteMore == true)
+                document.getElementById('continut').innerHTML = textLung;
+                document.getElementById('moreless').innerHTML = 'Show less';
+            }else{
+                document.getElementById('continut').innerHTML = textScurt;
+                document.getElementById('moreless').innerHTML = 'Show more';
+            }
+
+            esteMore = !esteMore;
+            document.getElementById('continut').setAttribute('data-este-more', esteMore);
+            console.log('dupa negare: ', esteMore);
+
+        });
+
+        // $('#moreless').click(function(){});
+    </script>
+</body>
+</html>

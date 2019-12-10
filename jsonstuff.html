@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h2>Json stuff</h2>
+
+    <script>
+        var book = {
+            "id": 3214,
+            "title": "I Robot",
+            "nrPages": 322,
+            "chapters": [
+                {
+                    name: "Introduction",
+                    page: 10
+                },
+                { name: "Chapter 1", page: 180 },
+                { name: "The End", page: 310 }
+            ]
+        };
+
+        var numere = [453, 765, 243, 765, 23];
+
+        console.log(book);
+        console.log(numere);
+        console.log(book.chapters);
+        console.log(book.chapters[1].name)
+
+        var foodsObject = {
+            "foods": [
+                {
+                    "id": 101,
+                    "name": "pizza",
+                    "cost": 300
+                },
+                {
+                    "id": 202,
+                    "name": "pasta",
+                    "cost": 400
+                }, {
+                    "id": 303,
+                    "name": "shaorma",
+                    "cost": 230
+                },
+                {
+                    "id": 304,
+                    "name": "sushi",
+                    "cost": 440
+                }
+            ]
+
+        }
+
+        console.log(foodsObject.foods[2].name);
+        console.log(foodsObject.foods[2]['name']);
+    </script>
+</body>
+
+</html>

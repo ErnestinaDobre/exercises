@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Welcome to recursivitate</h2>
+
+
+    <script>
+    
+        // function Angajat(id, nume){
+        //     this.id = id;
+        //     this.nume = nume;
+        //     return 'kek';
+        // }
+
+        class Angajat{
+
+            constructor(id, nume){
+                this.id = id;
+                this.nume = nume;
+            }
+        }
+
+        var a1 = new Angajat(10, 'Ion');
+        var a2 = new Angajat(20, 'Bob');
+        var a3 = new Angajat(30, 'Alice');
+
+        var a4 = new Angajat(40, 'Matt');
+        var a5 = new Angajat(50, "Andy");
+        var a6 = new Angajat(60, 'Alex');
+
+        var angajati = [a1,a2,a3,a4,a5]; // pentru afisare un for ar fi rezolvat problema
+        console.log(angajati);
+
+        console.log('---------------------------------');
+        // a1.email = 'ion@gmail.com';
+        a1.subordonati = [a3, a2];
+
+        a3.subordonati = [a4, a5, a6];
+
+        console.log(a1);
+        console.log('---------------------------------');
+        function afisareAngajat(x){
+            console.log('NUME: ' + x.nume);
+            if(x.subordonati && x.subordonati.length > 0){
+                for(var sub of x.subordonati){
+                    // console.log('NUME SUB: ' + sub.nume);
+                    afisareAngajat(sub);
+                }
+            }
+        }
+        afisareAngajat(a1);
+
+        function displayAngajatLista(x){
+
+        }
+
+    </script>
+
+    <ul id="lista-recursiva">
+        <!-- <li>Ion
+            <ul>
+                <li>Alice
+                    <ul>
+                        <li>Matt</li>
+                        <li>Andy</li>
+                    </ul>
+                </li>
+                <li>Bob</li>
+            </ul>
+        </li> -->
+    </ul>
+
+</body>
+</html>

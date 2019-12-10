@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        function Persoana(id, nume){
+            this.id = id;
+            this.nume = nume;
+        }
+
+        var p1 = new Persoana(100, 'ion');
+        var p2 = new Persoana(200, 'alice')
+        var p3 = new Persoana(55, 'bobby')
+        var p4 = new Persoana(400, 'zander')
+
+        var persoane = [p1, p2, p3, p4]
+        var numere = [10,3,44,32,23,403, 100]
+
+        numere.sort( (x, y) => { return y - x;} )
+        console.log('numere: ', numere)
+
+        persoane.sort( (x, y) => { return x.id - y.id; } );
+
+        console.log('persoane: ', persoane)
+
+        persoane.sort(  (x, y) => {return x.nume.localeCompare(y.nume)} )
+        console.log('persoane: ', persoane)
+
+        var nume1 = 'シトチノリ';
+        var nume2 = 'Ion';
+        console.log(nume1.localeCompare(nume2));
+    </script>
+</body>
+</html>
