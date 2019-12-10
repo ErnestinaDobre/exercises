@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style>
+        /* ul#lista-fisiere > li:nth-child(1) > ul:nth-child(1) > li > ul > li {
+            color: red;
+        }
+
+        ul#lista-fisiere > li:nth-child(2) > ul > li{
+            color: red;
+        } */
+    </style>
+</head>
+<body>
+    <h2 id="titlu">Recursivitate</h2>
+    <ul id="lista-fisiere">
+        <li data-tip="folder">C:/
+            <ul>
+                <li data-tip="folder">games <ul>
+                    <li>StarCraft <ul>
+                        <li data-tip="fisier">Sc.exe</li>
+                        <li data-tip="fisier">sc.dll</li>
+                    </ul></li>
+                    <li data-tip="folder">Age of empires</li>
+                </ul></li>
+                <li data-tip="folder">programs
+                    <ul>
+                        <li data-tip="folder">WinRar</li>
+                        <li data-tip="folder">Winamp <ul>
+                            <li data-tip="fisier">winamp.exe</li>
+                        </ul></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li data-tip="folder">D:/
+            <ul>
+                <li data-tip="fisier">test.mp3</li>
+                <li data-tip="folder">Muzica <ul>
+                    <li data-tip="fisier">Pink Floyd</li>
+                    <li data-tip="fisier">Judas Priest</li>
+                </ul></li>
+            </ul>
+        </li>
+    </ul>
+
+
+    <script>
+        
+        function highlightLeaves(element){
+            if(element.children.length == 0){
+                element.style.color = 'red';
+            }
+            for(let c of element.children){
+                highlightLeaves(c);
+            }
+        }
+
+       
+        // TODO: de modificat highlightLeaves a.i. sa afiseze leave-urile cu rosu
+        // dar doar daca sunt fisiere
+
+        // TODO: fara a folosi highlightLeaves, putem modifica culoarea
+        // fisierelor folosind just CSS?
+        console.log('-----------------')
+        highlightLeaves(document.getElementById('lista-fisiere'))
+
+    </script>
+</body>
+</html>

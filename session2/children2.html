@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style>
+        /* ul#lista-fisiere > li:nth-child(1) > ul:nth-child(1) > li > ul > li {
+            color: red;
+        }
+
+        ul#lista-fisiere > li:nth-child(2) > ul > li{
+            color: red;
+        } */
+    </style>
+</head>
+<body>
+    <h2 id="titlu">Recursivitate <span>Hello</span> <span><b>Bye</b></span></h2>
+    <ul id="lista-fisiere">
+        <li>C:/
+            <ul>
+                <li>games <ul>
+                    <li>StarCraft <ul>
+                        <li>Sc.exe</li>
+                        <li>sc.dll</li>
+                    </ul></li>
+                    <li>Age of empires</li>
+                </ul></li>
+                <li>programs
+                    <ul>
+                        <li>WinRar</li>
+                        <li>Winamp</li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li>D:/
+            <ul>
+                <li>test.mp3</li>
+                <li>Muzica <ul>
+                    <li>Pink Floyd</li>
+                    <li>Judas Priest</li>
+                </ul></li>
+            </ul>
+        </li>
+    </ul>
+
+    <div id="hello-div"><strong>Hello div</strong></div>
+
+    <script>
+        
+        function highlightLeaves(element){
+            if(element.children.length == 0){
+                element.style.color = 'red';
+            }
+            for(let c of element.children){
+                highlightLeaves(c);
+            }
+        }
+
+        let ulMare = document.getElementById('lista-fisiere');
+
+        // highlightLeaves(ulMare);
+        // highlightLeaves(document.getElementById('titlu'))
+        // console.log('test: ', document.getElementById('titlu').children)
+        // console.log('test: ', document.getElementById('titlu').children.length)
+        console.log('test: ', document.getElementById('titlu'))
+        console.log('test 2: ', document.getElementById('titlu').children)
+        // document.getElementById('titlu').children[0].style.color = 'red';
+
+        // TODO: check cum functioneaza highlightLeaves
+        highlightLeaves(document.getElementById('titlu'))
+        highlightLeaves(document.getElementById('hello-div').children[0])
+
+        console.log('-----------------')
+        highlightLeaves(document.getElementById('lista-fisiere'))
+
+    </script>
+</body>
+</html>

@@ -258,8 +258,22 @@
 
         // TODO: daca un 'folder' are tipul file, de afisat numele cu rosu
 
+        var containingDiv = document.getElementById('data-folder');
+        console.log('------')
+        console.log(document.getElementById('data-folder').children);
+        console.log('------')
+        
+
+
+        function changeColor(){
+            // console.log(document.getElementById('data-folder').children[0].children[1].children[2].children[1].children[2].children[0].children[1]);
+            console.log(document.getElementById('data-folder').children[0].children[0].children[2].children[1].children[2].children[0].children[1]);
+            document.getElementById('data-folder').children[0].children[0].children[2].children[1].children[2].children[0].children[1].style.color = 'red';
+        }
     </script>
 
+
+<button onclick="changeColor()">Change color</button>
 
 
 </body>

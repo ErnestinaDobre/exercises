@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+
+    <style>
+        ul#lista-meniu > li:nth-child(1) > ul > li:nth-child(1){
+            /* color: blueviolet;
+             */
+             /* background-color: black; */
+        }
+    </style>
+</head>
+<body>
+    <h2>Hello</h2>
+
+    <ul id="lista-produse">
+        <li>XBOX</li>
+        <li>PS4</li>
+        <li>Mouse</li>
+    </ul>
+
+    <ul id="lista-meniu">
+        <li>Mancaruri
+
+            <ul>
+                <li>Pizza</li>
+                <li>Pasta</li>
+            </ul>
+        </li>
+        <li>Bauturi
+            <ul>
+                <li>Coke</li>
+                <li>Sprite</li>
+            </ul>
+        </li>
+
+    </ul>
+
+
+    <script>
+    
+        var children = document.getElementById('lista-produse').children;
+        console.log('children: ', children);
+        console.log('second child: ', children[1]);
+        children[1].style.color = 'red';
+
+
+        console.log('---------')
+        console.log(document.getElementById('lista-meniu').children[0].children[0].children[1]);
+        document.getElementById('lista-meniu').children[0].children[0].children[1].style.color = 'red';
+
+        console.log('----------')
+        var elementulPasta = document.querySelector('ul#lista-meniu > li:nth-child(1) > ul > li:nth-child(1)');
+        console.log('elementul pizza: ', elementulPasta);
+        document.querySelector('ul#lista-meniu > li:nth-child(1) > ul > li:nth-child(1)').style.color = 'yellow';
+        document.querySelector('ul#lista-meniu > li:nth-child(1) > ul > li:nth-child(1)').style['background-color'] = 'black';
+        document.querySelector('ul#lista-meniu > li:nth-child(1) > ul > li:nth-child(1)').style.background = 'black';
+        document.querySelector('ul#lista-meniu > li:nth-child(1) > ul > li:nth-child(1)').style['font-family'] = 'arial';
+
+    </script>
+</body>
+</html>
