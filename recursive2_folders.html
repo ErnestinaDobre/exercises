@@ -8,8 +8,10 @@
     <title>Document</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-    <link rel="stylesheet" href="./vakata-jstree-c9d7c14/dist/themes/default/style.min.css" />
-    <script src="./vakata-jstree-c9d7c14/dist/jstree.min.js"></script>
+    <!-- <link rel="stylesheet" href="./vakata-jstree-c9d7c14/dist/themes/default/style.min.css" />
+    <script src="./vakata-jstree-c9d7c14/dist/jstree.min.js"></script> -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jstree/3.3.8/themes/default/style.min.css" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jstree/3.3.8/jstree.min.js"></script>
 </head>
 
 <body>
@@ -38,16 +40,16 @@
             }
         });
 
-        
-        
+
+
     </script>
 
     <ul id="lista-recursiva">
 
     </ul>
-<ul id="lista-dep">
+    <ul id="lista-dep">
 
-</ul>
+    </ul>
     <script>
 
         class Angajat {
@@ -87,11 +89,11 @@
 
 
 
-        function createDataObjectForJsTreeFromAngajati(angajat){
-            var result =  { text : angajat.nume };
-            if(angajat.subordonati && angajat.subordonati.length > 0){
+        function createDataObjectForJsTreeFromAngajati(angajat) {
+            var result = { text: angajat.nume };
+            if (angajat.subordonati && angajat.subordonati.length > 0) {
                 result.children = [];
-                for(var child of angajat.subordonati){
+                for (var child of angajat.subordonati) {
                     // varianta ne-recursiva = not okay (nu merge pe toate nivelurile)
                     // result.children.push({
                     //     "text" : child.nume
@@ -107,7 +109,7 @@
         $('#data-angajati').jstree({
             'core': {
                 'data': [createDataObjectForJsTreeFromAngajati(a1)]
-            
+
             }
         });
 
@@ -136,7 +138,7 @@
 
     <script>
 
-        function Departament(nume, buget, locatie){
+        function Departament(nume, buget, locatie) {
             this.nume = nume;
             this.buget = buget;
             this.locatie = locatie;
@@ -145,9 +147,9 @@
 
 
         var dep1 = {
-            nume : 'IT',
-            buget : 3000,
-            locatie : 'BUCHAREST'
+            nume: 'IT',
+            buget: 3000,
+            locatie: 'BUCHAREST'
         };
 
         var dep0 = new Departament('CONDUCERE', 9999, 'NY');
@@ -164,11 +166,11 @@
 
         // TODO: de afisat in ambele variante (lista, folders) departamentele
 
-        function foldereDepartamente(Departament){
-            var result =  { text : Departament.nume };
-            if(Departament.subdepartamente && Departament.subdepartamente.length > 0){
+        function foldereDepartamente(Departament) {
+            var result = { text: Departament.nume };
+            if (Departament.subdepartamente && Departament.subdepartamente.length > 0) {
                 result.children = [];
-                for(var child of Departament.subdepartamente){
+                for (var child of Departament.subdepartamente) {
                     // varianta ne-recursiva = not okay (nu merge pe toate nivelurile)
                     // result.children.push({
                     //     "text" : child.nume
@@ -184,7 +186,7 @@
         $('#data-departamente').jstree({
             'core': {
                 'data': [foldereDepartamente(dep0)]
-            
+
             }
         });
 
@@ -204,9 +206,9 @@
         var listaDepartamente = document.getElementById('lista-dep');
         //listaDepartamente.innerHTML = displayDepartamentLista_ok(dep0);
 
-        class Folder{
+        class Folder {
 
-            constructor(name, type){
+            constructor(name, type) {
                 this.name = name;
                 this.type = type;
             }
@@ -223,32 +225,32 @@
         gm.subfolders = [sc];
         pf.subfolders = [wr];
 
-        
 
-function afisareFoldere(folder){
-    var rezultat = {text: folder.name};
-   
-    if(folder.subfolders && folder.subfolders.length > 0){
-        rezultat.children = [];
-        for(var fold of folder.subfolders ) {
-            rezultat.children.push(afisareFoldere(fold))
+
+        function afisareFoldere(folder) {
+            var rezultat = { text: folder.name };
+
+            if (folder.subfolders && folder.subfolders.length > 0) {
+                rezultat.children = [];
+                for (var fold of folder.subfolders) {
+                    rezultat.children.push(afisareFoldere(fold))
+                }
+
+
+            }
+            if (folder.type == "file") {
+                console.log(folder.name);
+
+            }
+            return rezultat;
+
         }
-    
 
-    }
-    if(folder.type == "file"){
-        console.log(folder.name);
-        
-    }
-    return rezultat;
-
-}
-
-$('#data-folder').jstree({
-    'core': {
-        'data': [afisareFoldere(root)]
-        }
-})
+        $('#data-folder').jstree({
+            'core': {
+                'data': [afisareFoldere(root)]
+            }
+        })
 
 
 
