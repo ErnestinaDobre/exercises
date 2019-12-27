@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <title>Document</title>
 
     <style>
@@ -51,15 +52,15 @@
 
 
     <script>
-        
-        function highlightLeaves(element){
-            if(element.children.length == 0){
-                element.style.color = 'red';
-            }
-            for(let c of element.children){
-                highlightLeaves(c);
-            }
-        }
+        $("[data-tip=fisier]").css('color', 'red');
+        // function highlightLeaves(element){
+        //     if(element.children.length == 0){
+        //         $("[data-tip=fisier]").css('color', 'red');
+        //     }
+        //     for(let c of element.children){
+        //         highlightLeaves(c);
+        //     }
+        // }
 
        
         // TODO: de modificat highlightLeaves a.i. sa afiseze leave-urile cu rosu
@@ -68,7 +69,7 @@
         // TODO: fara a folosi highlightLeaves, putem modifica culoarea
         // fisierelor folosind just CSS?
         console.log('-----------------')
-        highlightLeaves(document.getElementById('lista-fisiere'))
+       // highlightLeaves(document.getElementById('lista-fisiere'))
 
     </script>
 </body>
