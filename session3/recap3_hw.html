@@ -28,10 +28,38 @@
             </div>
         </div>
         <hr>
-
+        
     </div>
 
     <script>
+
+        $.ajax(
+            {
+
+                url: 'https://jsonplaceholder.typicode.com/users',
+                success: function (user){ 
+                users_ = user;
+                userToHtml();  
+                
+                $.ajax({
+                    url: 'https://jsonplaceholder.typicode.com/posts',
+                    success: function (post){
+                    posts_ = post;
+                    postToHtml();
+
+                    $.ajax({
+                        url: 'https://jsonplaceholder.typicode.com/comments',
+                        success: function (comment){ 
+                        comments_ = comment;
+                        commentToHtml();
+                                                   }
+                            });
+                                            } 
+                            }); 
+                                        }   
+            }
+                ); 
+              
         // https://jsonplaceholder.typicode.com/users
 
         // https://jsonplaceholder.typicode.com/posts
@@ -45,7 +73,26 @@
         // hint: ajax - users 
             // success: ajax - posts
                 // success: ajax - comments
+        function postToHtml() {
+            $('#posts-here').append('');
+            for(var post of posts_){
+                for(var user of users_){
+                    if(post.userId == user.id ){
+                        
+                        $('#posts-here').append(`Id postare: ${post.id}<br><h3> ${post.title}</h3><br> ${post.body}<br><br> Posted by <span style = "color:red"> ${user.id} - ${user.name}</span> <br><br><hr> `)
 
+                    }
+                
+                }
+            
+            }
+        }
+        function commentToHtml() {
+            $('#posts-here').append('')
+        }
+        function userToHtml() {
+            $('#posts-here').append('')
+        }
     </script>
 </body>
 </html>
